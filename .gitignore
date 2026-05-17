@@ -1,0 +1,13 @@
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+
+raw_data/*
+!raw_data/example_data/
+!raw_data/example_data/**
+
+output/*
+!output/example_report.pdf
+!output/plots/
+output/plots/*
