@@ -5,6 +5,7 @@
 - `plotting.py` — построение графиков (boxplot, гистограммы и т.д.).
 - `report_builder.py` — сборка PDF-отчёта.
 - `generate_report.py` — главная точка входа.
+- `fonts/` — шрифты DejaVu Sans для PDF и графиков (кириллица, Windows/macOS/Linux).
 - `raw_data/example_data/` — пример входных данных.
 - `output/example_report.pdf` — пример итогового отчёта.
 
@@ -12,13 +13,27 @@
 
 Нужен Python 3.10+.
 
-Требуется запустить следующие команды:
+Требуется запустить следующие команды.
+
+**macOS / Linux:**
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
+
+**Windows (cmd):**
+
+```bat
+python -m venv .venv
+.venv\Scripts\activate.bat
+python -m pip install -r requirements.txt
+```
+
+Если команда `python` недоступна, замените её на `py` или `python3`.
+
+Шрифты для отчёта уже лежат в `fonts/`; отдельная установка в систему не нужна.
 
 # Формат входных данных
 

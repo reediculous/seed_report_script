@@ -2,6 +2,7 @@
 
 import os
 import re
+from pathlib import Path
 import numpy as np
 import pandas as pd
 from fpdf import FPDF
@@ -21,8 +22,10 @@ from stats_analysis import (
 )
 
 
-FONT_PATH = "/System/Library/Fonts/Supplemental/Arial Unicode.ttf"
-FONT_BOLD_PATH = "/System/Library/Fonts/Supplemental/Arial Bold.ttf"
+_FONTS_DIR = Path(__file__).resolve().parent / "fonts"
+FONT_REGULAR = _FONTS_DIR / "DejaVuSans.ttf"
+FONT_BOLD = _FONTS_DIR / "DejaVuSans-Bold.ttf"
+FONT_FAMILY = "ReportFont"
 
 # Figure captions under embedded charts (display only)
 FIGURE_CAPTION_FONT_PT = 11
@@ -42,12 +45,16 @@ class ReportPDF(FPDF):
         super().__init__(orientation="L", unit="mm", format="A4")
         self.set_auto_page_break(auto=True, margin=15)
 
-        if os.path.exists(FONT_PATH):
-            self.add_font("ArialUni", "", FONT_PATH, uni=True)
-        if os.path.exists(FONT_BOLD_PATH):
-            self.add_font("ArialUni", "B", FONT_BOLD_PATH, uni=True)
+        if not FONT_REGULAR.is_file():
+            raise FileNotFoundError(
+                f"Missing bundled font: {FONT_REGULAR}. "
+                "Add DejaVuSans.ttf to the fonts/ folder."
+            )
+        self.add_font(FONT_FAMILY, "", str(FONT_REGULAR))
+        if FONT_BOLD.is_file():
+            self.add_font(FONT_FAMILY, "B", str(FONT_BOLD))
 
-        self._font_name = "ArialUni" if os.path.exists(FONT_PATH) else "Helvetica"
+        self._font_name = FONT_FAMILY
         self._fig_num = 0
 
     def header(self):

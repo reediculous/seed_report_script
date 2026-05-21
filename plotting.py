@@ -1,21 +1,34 @@
 """Plotting functions for seed experiment report."""
 
 import os
+from pathlib import Path
 import numpy as np
 import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
+import matplotlib.font_manager as fm
 import matplotlib.pyplot as plt
 import seaborn as sns
 from typing import List, Dict, Optional
 
 from stats_analysis import METRIC_TITLES
 
+_FONTS_DIR = Path(__file__).resolve().parent / "fonts"
+
+
+def _register_bundled_fonts() -> None:
+    for name in ("DejaVuSans.ttf", "DejaVuSans-Bold.ttf"):
+        path = _FONTS_DIR / name
+        if path.is_file():
+            fm.fontManager.addfont(str(path))
+
 
 def _setup_style():
     """Grayscale theme for print-friendly (black and white) figures."""
+    _register_bundled_fonts()
     sns.set_theme(style="whitegrid", font_scale=1.0)
     plt.rcParams.update({
+        "font.family": "DejaVu Sans",
         "figure.dpi": 150,
         "savefig.dpi": 150,
         "savefig.bbox": "tight",

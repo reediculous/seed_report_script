@@ -1,0 +1,8 @@
+DejaVu fonts — https://dejavu-fonts.github.io/
+
+Files in this folder:
+  DejaVuSans.ttf
+  DejaVuSans-Bold.ttf
+
+License: Bitstream Vera License / Arev License (see upstream repository).
+Free to use and redistribute with the project.
